@@ -6,18 +6,17 @@
     <title>Terminal</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
-        body { background: #000; color: #00ff41; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; position: relative; }
+        body { background: #000; color: #00ff41; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
         
         #matrix-bg { position: fixed; inset: 0; z-index: 1; opacity: 0.25; pointer-events: none; }
 
-        #login-screen { position: fixed; inset: 0; background: #000; display: flex; justify-content: center; align-items: center; z-index: 100; transition: 0.4s; }
+        #login-screen { position: fixed; inset: 0; background: #000; display: flex; justify-content: center; align-items: center; z-index: 100; }
         .login-card { width: 100%; max-width: 300px; text-align: center; }
-        .input-group input { width: 100%; padding: 14px; background: #000; border: 1px solid #00ff41; color: #00ff41; outline: none; text-align: center; font-size: 18px; font-weight: bold; transition: border-color 0.2s; }
-        .input-group input.error { border-color: #ff0033; animation: shake 0.3s; }
+        .input-group input { width: 100%; padding: 14px; background: #000; border: 1px solid #00ff41; color: #00ff41; outline: none; text-align: center; font-size: 18px; font-weight: bold; }
         .login-btn { width: 100%; padding: 14px; background: #00ff41; border: none; color: #000; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 15px; margin-top: 20px; }
         .login-btn:hover { background: #000; color: #00ff41; border: 1px solid #00ff41; }
         
-        #portal-dashboard { width: 100%; max-width: 1400px; padding: 40px 20px; display: none; opacity: 0; transition: 0.5s; z-index: 2; position: relative; }
+        #portal-dashboard { width: 100%; max-width: 1400px; padding: 40px 20px; display: none; z-index: 2; position: relative; }
         header { text-align: center; margin-bottom: 40px; }
         header h1 { font-size: 36px; letter-spacing: 4px; text-shadow: 0 0 10px #00ff41; color: #00ff41; margin-bottom: 10px; }
         header p { color: #008f11; font-size: 14px; }
@@ -33,15 +32,9 @@
 
         #game-container { position: fixed; inset: 0; background: #000; z-index: 200; display: none; flex-direction: column; }
         #game-frame { width: 100%; height: calc(100% - 40px); border: none; background: #000; }
-        .frame-bar { height: 40px; background: #111; border-top: 1px solid #00ff41; display: flex; justify-space-between; align-items: center; padding: 0 20px; }
+        .frame-bar { height: 40px; background: #111; border-top: 1px solid #00ff41; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
         .frame-btn { background: #000; border: 1px solid #00ff41; color: #00ff41; padding: 4px 14px; cursor: pointer; font-size: 12px; font-weight: bold; }
         .frame-btn:hover { background: #00ff41; color: #000; }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
-        }
     </style>
 </head>
 <body>
@@ -51,7 +44,7 @@
     <div id="login-screen">
         <div class="login-card">
             <div class="input-group">
-                <input type="password" id="password" autocomplete="off" placeholder="PASSWORD">
+                <input type="password" id="password" autocomplete="off">
             </div>
             <button class="login-btn" onclick="tryLogin()">EXECUTE</button>
         </div>
@@ -88,12 +81,9 @@
         const fontSize = 16;
         const columns = canvas.width / fontSize;
         const rainDrops = Array(Math.floor(columns)).fill(1);
-        
         function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00ff41'; 
-            ctx.font = fontSize + 'px monospace';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff41'; ctx.font = fontSize + 'px monospace';
             for (let i = 0; i < rainDrops.length; i++) {
                 const text = alphabet[Math.floor(Math.random() * alphabet.length)];
                 ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
@@ -161,12 +151,10 @@
             document.getElementById('game-frame').src = url;
             document.getElementById('game-container').style.display = 'flex';
         }
-
         function closeGame() {
             document.getElementById('game-frame').src = "";
             document.getElementById('game-container').style.display = 'none';
         }
-
         function toggleFullscreen() {
             const el = document.getElementById('game-container');
             if (!document.fullscreenElement) {
@@ -177,33 +165,18 @@
         }
 
         function tryLogin() {
-            const passwordInput = document.getElementById('password');
-            const entry = passwordInput.value;
-            
-            if (entry === "indexhubby") {
-                document.getElementById('login-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('login-screen').style.display = 'none';
-                    const dash = document.getElementById('portal-dashboard');
-                    dash.style.display = 'block';
-                    setTimeout(() => dash.style.opacity = '1', 50);
-                }, 400);
+            const entry = document.getElementById('password').value;
+            if(entry === "indexhubby") {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('portal-dashboard').style.display = 'block';
             } else {
-                passwordInput.value = "";
-                passwordInput.classList.add('error');
-                setTimeout(() => passwordInput.classList.remove('error'), 500);
+                document.getElementById('password').value = "";
             }
         }
 
-        // Allow pressing Enter to submit password
-        document.getElementById('password').addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') tryLogin();
-        });
-
-        // Close active application via Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && document.getElementById('game-container').style.display === 'flex') {
-                closeGame();
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                tryLogin();
             }
         });
     </script>
