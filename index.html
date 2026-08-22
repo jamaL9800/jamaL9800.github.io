@@ -6,19 +6,16 @@
     <title>Terminal</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
-        body { background: #000; color: #00ff41; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; position: relative; }
+        body { background: #000; color: #00ff41; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
         
-        /* Matrix Digital Rain Animation Background */
         #matrix-bg { position: fixed; inset: 0; z-index: 1; opacity: 0.25; pointer-events: none; }
 
-        /* Total Black Box Gate (No Clues or Hints) */
         #login-screen { position: fixed; inset: 0; background: #000; display: flex; justify-content: center; align-items: center; z-index: 100; transition: 0.4s; }
         .login-card { width: 100%; max-width: 300px; text-align: center; }
         .input-group input { width: 100%; padding: 14px; background: #000; border: 1px solid #00ff41; color: #00ff41; outline: none; text-align: center; font-size: 18px; font-weight: bold; }
         .login-btn { width: 100%; padding: 14px; background: #00ff41; border: none; color: #000; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 15px; margin-top: 20px; }
         .login-btn:hover { background: #000; color: #00ff41; border: 1px solid #00ff41; }
         
-        /* Main System Interface Dashboard */
         #portal-dashboard { width: 100%; max-width: 1400px; padding: 40px 20px; display: none; opacity: 0; transition: 0.5s; z-index: 2; position: relative; }
         header { text-align: center; margin-bottom: 40px; }
         header h1 { font-size: 36px; letter-spacing: 4px; text-shadow: 0 0 10px #00ff41; color: #00ff41; margin-bottom: 10px; }
@@ -33,7 +30,6 @@
         .portal-card h3 { font-size: 14px; font-weight: bold; color: #00ff41; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .portal-card p { font-size: 11px; color: #008f11; margin-top: 4px; }
 
-        /* Fullscreen Isolated Game Engine Overlay Container */
         #game-container { position: fixed; inset: 0; background: #000; z-index: 200; display: none; flex-direction: column; }
         #game-frame { width: 100%; height: calc(100% - 40px); border: none; background: #000; }
         .frame-bar { height: 40px; background: #111; border-top: 1px solid #00ff41; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
@@ -43,10 +39,8 @@
 </head>
 <body>
 
-    <!-- Animated Canvas System -->
     <canvas id="matrix-bg"></canvas>
 
-    <!-- Invisible Lock Entrance -->
     <div id="login-screen">
         <div class="login-card">
             <div class="input-group">
@@ -56,7 +50,6 @@
         </div>
     </div>
 
-    <!-- Active Sandbox Browser Mirror Overlay -->
     <div id="game-container">
         <iframe id="game-frame" src=""></iframe>
         <div class="frame-bar">
@@ -65,24 +58,20 @@
         </div>
     </div>
 
-    <!-- Main Active Mainframe Interface -->
     <div id="portal-dashboard">
         <header>
             <h1>MAINFRAME</h1>
             <p>[SYSTEM ENHANCED CORE: 45+ ACTIVE WEB PORTS ONLINE]</p>
         </header>
 
-        <!-- Web Apps & Platforms Section (Option A Layout) -->
         <div class="section-title">Communication Systems & Core Portals</div>
         <div class="grid-container" id="apps-grid"></div>
 
-        <!-- 3D Arcade & Simulation Database Section -->
         <div class="section-title">In-Site Web Arcade & 3D Sandbox Vault</div>
         <div class="grid-container" id="games-grid"></div>
     </div>
 
     <script>
-        // Matrix Code Rain Script Loop
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -104,7 +93,6 @@
         }
         setInterval(drawMatrix, 30);
 
-        // Core App Routing Directory (Direct URL Links)
         const communicationApps = [
             { name: "WhatsApp", icon: "💬", url: "https://whatsapp.com" },
             { name: "TikTok", icon: "🎵", url: "https://tiktok.com" },
@@ -114,7 +102,6 @@
             { name: "Snapchat Web", icon: "👻", url: "https://snapchat.com" }
         ];
 
-        // 3D Browser Engines, Horror Games, & Open-Source Minecraft Sandboxes
         const hardwareGames = [
             { name: "Granny Remake 3D", icon: "👵", url: "https://gamedistribution.com" },
             { name: "Baldi Basics Edition", icon: "📐", url: "https://gamedistribution.com" },
@@ -126,13 +113,11 @@
             { name: "Advanced Combat 3D Shooter", icon: "🔫", url: "https://gamedistribution.com" }
         ];
 
-        // Generation loop to instantly stack the database to over 45 total interactive titles
         const titlesPool = [
             "Hyper Drift 3D", "Cyber City Racer", "Matrix Horizon 3D", "Voxel Strike Force", "Core Velocity", 
             "Neon Runner 3D", "Retro Terminal Asteroids", "Command Line Tank Arena", "Space Vortex Flight", "Grid Core Breaker"
         ];
         
-        // Loop runs 40 times to automatically inject 40 additional unique, functional HTML5 game paths
         for(let i = 1; i <= 40; i++) {
             const template = titlesPool[i % titlesPool.length];
             hardwareGames.push({
@@ -142,7 +127,6 @@
             });
         }
 
-        // Render Communication Redirect Grid (Option A)
         const appsGrid = document.getElementById('apps-grid');
         communicationApps.forEach(app => {
             appsGrid.innerHTML += `
@@ -153,7 +137,6 @@
                 </div>`;
         });
 
-        // Render Built-In Web Overlay Game Vault Grid (45+ Total Entries)
         const gamesGrid = document.getElementById('games-grid');
         hardwareGames.forEach(game => {
             gamesGrid.innerHTML += `
@@ -164,10 +147,32 @@
                 </div>`;
         });
 
-        // Game Window Engine Controllers
         function launchApp(url) {
             document.getElementById('game-frame').src = url;
             document.getElementById('game-container').style.display = 'flex';
         }
         function closeGame() {
             document.getElementById('game-frame').src = "";
+            document.getElementById('game-container').style.display = 'none';
+        }
+        function toggleFullscreen() {
+            const el = document.getElementById('game-container');
+            if (!document.fullscreenElement) {
+                el.requestFullscreen().catch(err => alert(`Error: ${err.message}`));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        function tryLogin() {
+            const entry = document.getElementById('password').value;
+            if(entry === "indexhubby") {
+                document.getElementById('login-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.display = 'none';
+                    const dash = document.getElementById('portal-dashboard');
+                    dash.style.display = 'block';
+                    setTimeout(() => dash.style.opacity = '1', 50);
+                }, 400);
+            } else {
+                document.getElementById('password').value = "";
